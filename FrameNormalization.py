@@ -22,7 +22,7 @@ def convertToHomogenousSample(sample):
             sampleOut.pop(i)
             c = c + 1
             
-        print(f"Number of frames deleted - {extraFrames}. They were at frame indices - {indicesToDelete}")
+        #print(f"Number of frames deleted - {extraFrames}. They were at frame indices - {indicesToDelete}")
         return sampleOut
     
     
@@ -35,7 +35,7 @@ def convertToHomogenousSample(sample):
             i = i + c
             sampleOut.insert(i + 1, sample[i])
             c = c + 1
-        print(f"Number of frames added - {extraFrames}. They are copies of frame indices - {indicesToCopy}")
+        #print(f"Number of frames added - {extraFrames}. They are copies of frame indices - {indicesToCopy}")
         return sampleOut
     
     
