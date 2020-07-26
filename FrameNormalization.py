@@ -7,9 +7,11 @@ def show(img, title="img"):
     cv2.waitKey()
     cv2.destroyAllWindows()
     
-def convertToHomogenousSample(sample):
+#'sample' : path to sample
+# 'meanFrameValue' : number of frames
+
+def convertToHomogenousSample(sample, meanFrameValue):
     #here sample is a list of all frames, each frame is opencv image object
-    meanFrameValue = 32 #VAR
     extraFrames = abs(len(sample) - meanFrameValue)
     c = 0
     if(len(sample) > meanFrameValue):
