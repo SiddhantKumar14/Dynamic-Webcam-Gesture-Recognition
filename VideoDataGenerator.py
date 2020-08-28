@@ -37,8 +37,6 @@ def VideoDataGenerator(data_path, frame_dim, batch_size = 64):
         sample_names[i] = os.listdir(f'{data_path}{classes[i]}')
     
     while True:
-        samples_pushed = []
-        offset = 0
         total_samples = 0
         c = 0
         for cl in sample_names:
@@ -63,7 +61,7 @@ def VideoDataGenerator(data_path, frame_dim, batch_size = 64):
                 batch_iter -= 1
                 continue
             vid_sample = f'{data_path}{classes[sample_class]}/{sample_names[sample_class][0]}'
-            #fuck up hoga toh ye^ line me hoga
+            
             frames = os.listdir(vid_sample)
             frames.sort()
             vid = []
