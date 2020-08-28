@@ -11,7 +11,6 @@ from tensorflow.python.keras.utils import np_utils, generic_utils
 from tensorflow.keras.callbacks import ModelCheckpoint
 
 import os
-import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 
