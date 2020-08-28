@@ -1,11 +1,104 @@
-import cv2
-import numpy as np
-from tensorflow.keras import models
+from tensorflow.python.keras.models import Sequential, load_model
+from tensorflow.python.keras.layers.core import Dense, Dropout, Activation, Flatten
+from tensorflow.python.keras.layers.convolutional import Conv3D, MaxPooling3D
+from tensorflow.python.keras.layers import BatchNormalization
+from tensorflow.python.keras.layers import GlobalMaxPool2D
+from tensorflow.python.keras.layers import LSTM
+from tensorflow.python.keras.layers import Conv2D
+from tensorflow.python.keras.layers import Reshape
+from tensorflow.python.keras.optimizers import SGD
+from tensorflow.python.keras.utils import np_utils, generic_utils
+from tensorflow.keras.callbacks import ModelCheckpoint
+
 import os
-from tensorflow.keras.models import load_model
-import model_main 
+import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+
+nb_classes = 27
+
+model = Sequential()
+#`channels_last` corresponds to inputs with shape `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
+strides = (1,1,1)
+kernel_size = (3, 3, 3)
+model.add(Conv3D(32, kernel_size, strides=strides, activation='relu', padding='same', input_shape=(32, 64, 96, 3)))
+print(model.output_shape)
+model.add(BatchNormalization())
+model.add(MaxPooling3D(pool_size=(1, 2, 2)))
+print(model.output_shape)
+
+model.add(Conv3D(64, kernel_size, strides=strides, activation='relu',padding='same'))
+print(model.output_shape)
+model.add(BatchNormalization())
+model.add(MaxPooling3D(pool_size=(1, 2, 2)))
+print(model.output_shape)
+
+model.add(Conv3D(128, kernel_size, strides=strides, activation='relu',padding='same'))
+print(model.output_shape)
+model.add(BatchNormalization())
+model.add(MaxPooling3D(pool_size=(1, 2, 2)))
+print(model.output_shape)
+
+model.add(Conv3D(256, kernel_size, strides=strides, activation='relu',padding='same'))
+print(model.output_shape)
+model.add(BatchNormalization())
+
+model.add(Conv3D(256, kernel_size, strides=strides, activation='relu',padding='same'))
+print(model.output_shape)
+model.add(BatchNormalization())
+
+model.add(Conv3D(256, kernel_size, strides=strides, activation='relu',padding='same'))
+print(model.output_shape)
+model.add(BatchNormalization())
+
+model.add(MaxPooling3D(pool_size=(1,8,12)))
+print(model.output_shape)
+
+model.add(Reshape((32, 256)))
+print(model.output_shape)
+model.add(LSTM(256, return_sequences=True))
+print(model.output_shape)
+model.add(LSTM(256))
+print(model.output_shape)
+
+model.add(Dense(256, activation='relu'))
+print(model.output_shape)
+
+model.add(Dense(nb_classes, activation='softmax'))
+print(model.output_shape)
+
+# model.add(LSTM(256))
 
 to_predict = []
+classes = ['Pushing Two Fingers Away',
+ 'Pushing Hand Away',
+ 'Doing other things',
+ 'Turning Hand Clockwise',
+ 'Zooming In With Two Fingers',
+ 'Sliding Two Fingers Left',
+ 'Stop Sign',
+ 'Pulling Two Fingers In',
+ 'Drumming Fingers',
+ 'Sliding Two Fingers Right',
+ 'Sliding Two Fingers Down',
+ 'No gesture',
+ 'Rolling Hand Backward',
+ 'Swiping Down',
+ 'Rolling Hand Forward',
+ 'Turning Hand Counterclockwise',
+ 'Thumb Down',
+ 'Swiping Up',
+ 'Zooming Out With Full Hand',
+ 'Shaking Hand',
+ 'Thumb Up',
+ 'Zooming In With Full Hand',
+ 'Swiping Right',
+ 'Zooming Out With Two Fingers',
+ 'Swiping Left',
+ 'Sliding Two Fingers Up',
+ 'Pulling Hand In']
+
+model.load_weights('main.h5')
 num_frames = 0
 cap = cv2.VideoCapture(0)
 cap.set(12, 50)
@@ -32,7 +125,7 @@ while(True):
         predict = model.predict(np.array(frame_to_predict))
         classe = classes[np.argmax(predict)]
         if np.argmax(predict)!=2:
-            print('Classe = ',classe, 'Precision = ', np.amax(predict)*100,'%')
+            print('Class = ',classe, 'Precision = ', np.amax(predict)*100,'%')
 
 
         #print(frame_to_predict)
