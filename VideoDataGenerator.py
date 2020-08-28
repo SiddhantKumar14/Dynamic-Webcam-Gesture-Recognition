@@ -47,6 +47,7 @@ def VideoDataGenerator(data_path, frame_dim, batch_size = 64):
             if c == len(classes) - 1:
                 for i in range(len(classes)):
                     sample_names[i] = os.listdir(f'{data_path}{classes[i]}')
+                c = 0
                 continue
         X = []
         y = []
