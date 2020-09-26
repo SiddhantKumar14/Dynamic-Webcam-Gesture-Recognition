@@ -5,6 +5,9 @@ I have implemented the model based on [this paper](https://openaccess.thecvf.com
 I have also written a custom VideoDataGenerator that works in a similar fashion to keras' ImageDataGenerator for 3D neural networks, feel free to use it :)
 
 Run predict.py with the necessary libraries (keras, tf, opencv, matplotlib, numpy and os) installed - 
-\n OpenCV - 4.4.0
-\n Tensorflow - 2.0.0
-\n Keras - 2.1.1
+
+OpenCV - 4.4.0
+
+Tensorflow - 2.0.0
+
+Keras - 2.1.1
