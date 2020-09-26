@@ -11,3 +11,7 @@ OpenCV - 4.4.0
 Tensorflow - 2.0.0
 
 Keras - 2.1.1
+
+OR
+
+Run the command - 'conda env create -f 3Dgesture.yml' to automatically create the environment with the necessary libraries
