@@ -122,7 +122,8 @@ while(True):
 
 
     to_predict.append(frame_cp)
-
+    to_predict.append(frame_cp)
+    
     predict = 0
     if len(to_predict) == 32:
 
@@ -132,7 +133,7 @@ while(True):
 
         predict = model.predict(np.array(frame_to_predict))
         classe = classes[np.argmax(predict)]
-        if np.argmax(predict) not in [2,11]:
+        if np.argmax(predict) not in [2]:
             if np.amax(predict) > 0.85:
                 print('Class = ',classe, 'Precision = ', np.amax(predict)*100,'%')
                 preds.append(np.argmax(predict))
