@@ -16,10 +16,4 @@ OR
 
 Run the command - 'conda env create -f 3Dgesture.yml' to automatically create the environment with the necessary libraries
 
-Using utils.search_images_bing we can download images as well as videos for a dataset. (Based on microsoft azure cognitive services)
-Run utils.py with the necessary libraries:
-
-nbdev - 1.1.0
-
-azure-cognitiveservices-search-imagesearch - 2.0.0
 
